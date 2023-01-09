@@ -1,4 +1,6 @@
-import React from 'react';
+import localforage from 'localforage';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 
 // import { Container }
 type HeaderProps = {
@@ -7,6 +9,21 @@ type HeaderProps = {
 }
 
 const Header: React.FC<HeaderProps> = ({ headerRight, ...props }) => {
+    const router = useRouter()
+
+
+    useEffect(() => {
+        console.log('header', props);
+        (async () => {
+            const user = await localforage.getItem('user')
+            console.log('user', user)
+
+            if (user) {
+                router.push('/app')
+            }
+        })()
+    }, [])
+
     return <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
             <a className="shadow-text navbar-brand text-white " href="#">Calendar.io</a>

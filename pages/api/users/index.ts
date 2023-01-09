@@ -37,12 +37,12 @@ export default async function handler(
             }
 
             const sql = db.insert({ table: "users", data: user }).toString();
-            const result = db.query(sql);
+            const result = await db.query(sql);
 
             if (result.error) {
                 return res.status(400).json({ error: result.error });
             } else {
-                return res.status(200).json({ user, message: 'User created' });
+                return res.status(201).json({ user, message: 'User created' });
             }
             break;
         default:

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import Pageloading from '../components/PageLoading';
 import { appApi } from '../services/Api';
+import localforage from 'localforage';
+import Router, { useRouter } from 'next/router';
 
 // import { Container } from './styles';
 type Form = {
@@ -14,6 +16,7 @@ type Form = {
 }
 
 const SignUp: React.FC = () => {
+    const router = useRouter();
 
     const [form, setForm] = useState({} as Form)
     const [error, setError] = useState("")
@@ -39,7 +42,11 @@ const SignUp: React.FC = () => {
 
             const users_req = await appApi.post("/users", form);
 
-            console.log(users_req)
+            if (users_req.status === 201) {
+                localforage.setItem("user", users_req.data.user)
+                router.push("/app")
+            }
+
 
 
         } catch (error: any) {

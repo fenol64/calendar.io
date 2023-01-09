@@ -23,6 +23,17 @@ body {
     border-color: #FAAB78;
 }
 
+.btn-pastel:hover {
+    color: #fff;
+    background-color: #FAAB78;
+    border-color: #FAAB78;
+}
+
+.btn-pastel:focus,
+.btn-pastel.focus {
+    box-shadow: 0 0 0 0.2rem rgba(250, 171, 120, 0.5);
+}
+
 .text-pastel {
     color: #FAAB78;
 }
