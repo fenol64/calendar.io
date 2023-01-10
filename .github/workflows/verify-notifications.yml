@@ -1,15 +1,19 @@
-- name: HTTP Request Action
-  uses: fjogeleit/http-request-action@v1.12.0
----
+on: 
+  schedule:
+    - cron: '* * * * *'
+    
+name: "Verrify events"
+
 jobs:
   deployment:
     runs-on: ubuntu-latest
-    on:
-      schedule:
-        - cron: '* * * * *'
     steps:
-    - name: Verify Events
+    - name: Deploy Stage
       uses: fjogeleit/http-request-action@v1
       with:
-        url: 'https://calendar-io.vercel.app/api/events/send-notification'
-        method: 'GET'
+        url: 'https://ansible.io/api/v2/job_templates/84/launch/'
+        method: 'POST'
+        username: ${{ secrets.AWX_USER }}
+        password: ${{ secrets.AWX_PASSWORD }}
+        customHeaders: '{"Content-Type": "application/json"}'
+        data: '{"key_1": "value_1", "key_2": "value_2"}'
