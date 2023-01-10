@@ -1,0 +1,15 @@
+- name: HTTP Request Action
+  uses: fjogeleit/http-request-action@v1.12.0
+---
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    on:
+      schedule:
+        - cron: '* * * * *'
+    steps:
+    - name: Verify Events
+      uses: fjogeleit/http-request-action@v1
+      with:
+        url: 'https://calendar-io.vercel.app/api/events/send-notification'
+        method: 'GET'
